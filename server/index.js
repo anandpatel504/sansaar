@@ -32,15 +32,19 @@ exports.deployment = async (start) => {
     );
   });
 
+  // #TODO
+  /*
   const { MatrixClient, AutojoinRoomsMixin, SimpleFsStorageProvider } = sdk;
   const homeserverUrl = 'https://m.navgurukul.org';
   const { accessToken } = CONFIG.auth.chat;
   const storage = new SimpleFsStorageProvider('bot.json');
   const client = new MatrixClient(homeserverUrl, accessToken, storage);
   AutojoinRoomsMixin.setupOnClient(client);
+  */
 
   // Set the matrix client before initializing the server
-  server.app.chatClient = client;
+
+  // server.app.chatClient = client;
 
   await server.initialize();
 
@@ -51,10 +55,11 @@ exports.deployment = async (start) => {
   await server.start();
 
   /* Scheduler */
-  cron.schedule('0 * * * * *', async () => {
-    classReminderScheduler(classesService, chatService, displayService);
-    classFeedbackScheduler(classesService, chatService, displayService);
-  });
+  /** BOT TURNED OFF #TODO */
+  // cron.schedule('0 * * * * *', async () => {
+  //   classReminderScheduler(classesService, chatService, displayService);
+  //   classFeedbackScheduler(classesService, chatService, displayService);
+  // });
 
   // cron.schedule('0 * * * * *', async () => {
   //   console.log('*********************************************');
@@ -68,17 +73,19 @@ exports.deployment = async (start) => {
 
   // eslint-disable-next-line no-console
   console.log(`Server started at ${server.info.uri}`);
-  server.chatClient = client;
+  //server.chatClient = client;
 
   // eslint-disable-next-line
   const { chatService, classesService, userService, displayService } = server.services();
 
+  // #TODO
+  /*
   client.start().then(() => {
     // eslint-disable-next-line
     console.log('Client started!');
   });
   client.on('room.message', chatService.handleCommand.bind(this));
-
+*/
   return server;
 };
 
